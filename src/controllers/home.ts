@@ -1,22 +1,42 @@
 import { Request, Response } from "express";
-import { parseEmail } from "../util/parseEmail";
+import _ from "lodash";
 
 export const index = async (req: Request, res: Response) => {
   try {
-    const dummyEmail = "From:<sender@example.com>\r\n"+
-        "To: 'Receiver Name' <receiver@example.com>\r\n"+
-        "Subject: Hello world!\r\n"+
-        "\r\n"+
-        "10 May 2021: 9.130, 11 May 2021: 12500, 12 May 2021: 140.25";
+      const transactions= req.body.transactions;
 
-    const results = await parseEmail(dummyEmail);
+      if (!transactions){
+          res.status(404).json("No transactions found");
+      } 
 
-    //log results on terminal as json
-    console.log(JSON.stringify(results));
+      const results= [];
 
-    return res.status(200).json(results);
+      //check is there are matching elements in array
+      for(let i=0; i<transactions.length; i++){
+        let isRecurring= false;
+        let matches = 0;
+          for(let j=0; j<transactions.length; j++){
+              if(transactions[i].amount === transactions[j].amount){
+                matches++;
+                }
+                if(matches > 1){
+                  isRecurring= true;
+                }
+            }
+        const transaction= {
+          amount: transactions[i].amount,
+          date: transactions[i].date,
+          description: transactions[i].description,
+          is_recurring: isRecurring
+        };
+
+        results.push(transaction);
+      }
+
+    return res.status(200).json({results});
   } catch(err){
     console.log(err);
     return res.status(500).json({err});
   }
 };
+  
