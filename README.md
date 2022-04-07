@@ -1,62 +1,20 @@
-# EMAIL PARSER BY VRA_99
+# TRANSACTION APP
 
-The main purpose of this repository is to create a function that can parse emails and extract the information that is needed.
-
-The function outputs an object (dictionary) of dates and values, and the mean of values in the same message:
-
-For example the function will translate a message from a user such as 
-
-10 May 2021: 9.130
-
-11 May 2021: 12500
-
-12 May 2021: 140.25
-
-to:
-
-```bash 
-{
-
-"sender": "email@example.com",
-
-"values": {
-
-"2021-05-10": 9.130,
-
-"2021-05-11": 12500,
-
-"2021-05-12": 140.25
-
-},
-
-"mean": 4216.46
-
-}
-```
-
-## Deploy the app
-
-Firstly run ``` npm install ``` to install all the dependencies.
-
-Then run ``` npm run build ``` to build the app.
-
-Finally run ``` npm run serve ``` to run the app at localhost:3000.
-
-You can also run the app in development mode with nodemon by using the following command ```npm run dev```
+## Installment
+Please use `yarn install` to install the dependencies.
+Then use `yarn run dev` to run in development mode
 
 ## Testing
-In order to test the app, you can use the following command:
-```npm test```
+You can test the api point by requesting a post request in localhost:3000 with a transactions json scheme. The request will return all the items as swell as the new object property, is_recurred. The is_recurred property will be true if the transaction is recurred.
 
-You can check the app in localhost:3000 once you run the command ```npm start``` fill the form and you will receive the results from the function both in the terminal as a json stringified object and as json response on the browser.
+1. How would you measure the accuracy of your approach?
+Given the time limit, it was not possible to implement a full-fledged system. However, I managed to implement a system, which will filter a json file and return a new json file with the new is_recurred property. The filter only takes in consideration whether two items have the same amount price.
 
-## Technologies used
-- TypeScript
-- Node.js
-- Express
-- Pug
-- Morgan
-- Jest
-- Bootsrap
+2. How would you know whether solving this problem made a material impact on customers?
+Is quite beneficial for a customer to be able to track their expenses in a much more intelligent way. Being able to analyse and see what your payments are and how often, provides an exceptional experience for the customer.
 
+3. How would you deploy your solution?
+I would deploy the solution on Heroku.
 
+4. What other approaches would you investigate if you had more time?
+I would obviously have spend more time analysing the different possible filters that can be applied in order to maximise the efficiency. For example an algorithm that takes in consideration similar words in the description of the item and price ranges. Filters whether a certain payment happens x time of the month.
